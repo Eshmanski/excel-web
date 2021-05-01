@@ -6,11 +6,14 @@
         "node": true
     },
     "rules": {
-        "one-var": "off",
-        "semi": "off",
-        "indent": "off",
-        "comma-dangle": "off",
-        "require-jsdoc":"off"
+        "object-curly-spacing": "off",
+        "require-jsdoc": "off",
+        "operator-linebreak": ["error", "none", { "overrides": {"=": "after", "?": "before", ":": "before"}}],
+        "indent": "off"
     },
-    "extends": ["eslint:recommended", "google"]
+    "extends": ["eslint:recommended", "google"],
+    "plugins": [
+        "prettier"
+    ]
+
 }
