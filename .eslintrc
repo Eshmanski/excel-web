@@ -8,12 +8,9 @@
     "rules": {
         "object-curly-spacing": "off",
         "require-jsdoc": "off",
-        "operator-linebreak": ["error", "none", { "overrides": {"=": "after", "?": "before", ":": "before"}}],
-        "indent": "off"
+        "operator-linebreak": ["error", "none", { "overrides": {".": "before", "=": "after", "?": "before", ":": "before"}}],
+        "indent": "off",
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }]
     },
-    "extends": ["eslint:recommended", "google"],
-    "plugins": [
-        "prettier"
-    ]
-
+    "extends": ["eslint:recommended", "google"]
 }
