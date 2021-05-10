@@ -8,6 +8,7 @@
     "rules": {
         "object-curly-spacing": "off",
         "require-jsdoc": "off",
+        "max-len": "off",
         "operator-linebreak": ["error", "none", { "overrides": {".": "before", "=": "after", "?": "before", ":": "before"}}],
         "indent": "off",
         "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }]
