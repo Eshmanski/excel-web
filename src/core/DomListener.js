@@ -16,22 +16,36 @@ export class DomListener {
 
       if (!this[method]) {
         throw new Error(
-          `Methos ${method} is not declared in ${this.name} component`
+          `Method ${method} is not declared in ${this.name} component`
         );
       }
 
-      this[method] = this[method].bind(this);
-
-      this.$root.on(listener, this[method]);
+      this.$root.on(listener, this[method].bind(this));
     });
   }
 
-  removeDOMListeners() {
+  removeDOMListenersAll() {
     this.listeners.forEach((listener) => {
       const method = getMethodName(listener);
 
       this.$root.off(listener, this[method]);
     });
+  }
+
+  addDOMListener(listener, ...arg) {
+    const method = getMethodName(listener);
+
+    if (!this[method]) {
+      throw new Error(
+        `Method ${method} is not declared in ${this.name} component`
+      );
+    }
+
+    this.$root.on(listener, this[method].bind(this, ...arg));
+  }
+
+  removeDOMListener(listener) {
+    this.$root.off(listener);
   }
 }
 

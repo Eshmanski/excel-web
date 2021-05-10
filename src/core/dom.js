@@ -4,6 +4,8 @@ class Dom {
       typeof selector === 'string'
         ? document.querySelector(selector)
         : selector;
+
+      this.listenersCallbacks = {};
   }
 
   html(html) {
@@ -23,11 +25,13 @@ class Dom {
   }
 
   on(eventType, callback) {
+    this.listenersCallbacks[eventType] = callback;
+
     this.$el.addEventListener(eventType, callback);
   }
 
-  off(eventType, callback) {
-    this.$el.removeEventListener(eventType, callback);
+  off(eventType) {
+    this.$el.removeEventListener(eventType, this.listenersCallbacks[eventType]);
   }
 
   append(node) {
