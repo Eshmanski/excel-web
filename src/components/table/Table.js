@@ -1,7 +1,7 @@
-import { $ } from '@core/dom';
 import { ExcelComponent } from '@core/ExcelComponent';
 import { shouldResize, isCell } from './table.functions';
 import { resizeHandler } from './table.resize';
+import { selectHandler } from './table.select';
 import { createTable } from './table.template';
 import { TableSelection } from './TableSelection';
 
@@ -34,9 +34,7 @@ export class Table extends ExcelComponent {
     if (shouldResize(event)) {
       resizeHandler(this.$root, event);
     } else if (isCell(event)) {
-      const target = $(event.target);
-
-      this.selection.select(target);
+      selectHandler(this.selection, event);
     }
   }
 }
