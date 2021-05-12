@@ -3,10 +3,18 @@ const CODES = {
   Z: 90,
 };
 
-function toCell(_, index) {
-  return `
-  <div contenteditable class="cell" data-col="${index}">
-  </div>`;
+// function toCell(row, col) {
+//   return `
+//   <div contenteditable class="cell" data-row="${row}" data-col="${toChar(null, col)}">
+//   </div>`;
+// }
+
+function toCell(row) {
+  return function(_, col) {
+    return `
+    <div contenteditable class="cell" data-id="${row}:${col}" data-type="cell" data-col="${col}">
+    </div>`;
+  };
 }
 
 function toColumn(col, index) {
@@ -21,15 +29,15 @@ function toChar(_, index) {
   return String.fromCharCode(CODES.A + index);
 }
 
-function createCol(colsCount, options) {
+function createCol(colsCount, { type, row }) {
   let col = new Array(colsCount).fill('');
 
-  switch (options.type) {
+  switch (type) {
     case 'header':
       col = col.map(toChar).map(toColumn);
       break;
     case 'content':
-      col = col.map(toCell);
+      col = col.map(toCell(row));
       break;
   }
 
@@ -60,7 +68,7 @@ export function createTable(rowsCount = 15) {
   rows.push(createRow(null, createCol(colsCount, { type: 'header' })));
 
   for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(i + 1, createCol(colsCount, { type: 'content' })));
+    rows.push(createRow(i + 1, createCol(colsCount, { type: 'content', row: i })));
   }
   return rows.join('');
 }
