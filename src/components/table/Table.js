@@ -31,8 +31,11 @@ export class Table extends ExcelComponent {
 
     this.selection.select($cell);
 
-    this.$on('formula:input', (text) => {
-      this.selection.current.text(text);
+    this.$on('formula:input', (text) => this.selection.current.text(text));
+    this.$on('formula:enter', () => this.selection.current.focus());
+    this.$on('formula:focus', ($el) => {
+      console.log(this.selection.current.text());
+      $el.text(this.selection.current.text());
     });
   }
 
