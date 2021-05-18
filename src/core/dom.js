@@ -87,7 +87,11 @@ class Dom {
   }
 
   findAll(selector) {
-    return this.$el.querySelectorAll(selector);
+    const $els = [];
+
+    this.$el.querySelectorAll(selector).forEach((el) => $els.push($(el)));
+
+    return $els;
   }
 
   id(parse) {

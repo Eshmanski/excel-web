@@ -5,6 +5,7 @@ import { resizeHandler } from './table.resize';
 import { createTable } from './table.template';
 import { TableSelection } from './TableSelection';
 import * as actions from '@/redux/actions';
+import { storage } from '@core/utils';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -28,6 +29,8 @@ export class Table extends ExcelComponent {
   init() {
     super.init();
 
+    this.fillTable();
+
     const $cell = this.$root.find('[data-id="0:0"]');
 
     this.selectCell($cell);
@@ -39,10 +42,20 @@ export class Table extends ExcelComponent {
     this.$on('formula:done', () => {
       this.selection.current.focus();
     });
+  }
 
-    // this.$subscribe((state) => {
-    //   console.log('TableState', state);
-    // });
+  fillTable() {
+    const data = storage('excel-state') || {};
+    const colState = data.colState || {};
+    const rowState = data.rowState || {};
+
+    Object.keys(colState).forEach((key) => {
+      this.$root.findAll(`[data-col="${key}"]`).forEach((el) => el.css({ width: colState[key] + 'px' }));
+    });
+
+    Object.keys(rowState).forEach((key) => {
+      this.$root.find(`[data-row="${key}"]`).css({ height: rowState[key] + 'px' });
+    });
   }
 
   selectCell($cell) {

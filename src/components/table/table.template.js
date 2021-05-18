@@ -29,31 +29,24 @@ function toChar(_, index) {
   return String.fromCharCode(CODES.A + index);
 }
 
-function createCol(colsCount, { type, row }) {
+function createCol(colsCount, row = null) {
   let col = new Array(colsCount).fill('');
 
-  switch (type) {
-    case 'header':
-      col = col.map(toChar).map(toColumn);
-      break;
-    case 'content':
-      col = col.map(toCell(row));
-      break;
-  }
+  if (row === null) col = col.map(toChar).map(toColumn);
+  else col = col.map(toCell(row));
 
   return col.join('');
 }
 
 function createRow(index, content) {
-  const resize = index
-    ? '<div data-resize="row" class="row-resize"></div>'
+  const contentRows = index
+    ? `${index}<div data-resize="row" class="row-resize"></div>`
     : '';
 
   return `
-    <div class="row" ${index ? 'data-type="resizable"' : ''}>
+    <div class="row" ${index ? `data-row=${index-1} data-type="resizable"` : ''}>
       <div class="row-info">
-        ${index ? index : ''}
-        ${resize}
+        ${contentRows}
       </div>
       <div class="row-data">${content}</div> 
     </div>
@@ -65,10 +58,11 @@ export function createTable(rowsCount = 15) {
   const colsCount = CODES.Z - CODES.A + 1;
   const rows = [];
 
-  rows.push(createRow(null, createCol(colsCount, { type: 'header' })));
+  rows.push(createRow(null, createCol(colsCount)));
 
   for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(i + 1, createCol(colsCount, { type: 'content', row: i })));
+    rows.push(createRow(i + 1, createCol(colsCount, i )));
   }
+
   return rows.join('');
 }
