@@ -6,13 +6,12 @@ import { Toolbar } from '@/components/toolbar/Toolbar';
 import { createStore } from '@core/createStore';
 import { rootReducer } from './redux/rootReducer';
 import { storage } from '@core/utils';
+import { initialState } from './redux/initialState';
 import '@/scss/index.scss';
 
-const store = createStore(rootReducer, storage('excel-state'));
+const store = createStore(rootReducer, initialState);
 
 store.subscribe((state) => {
-  console.log('App state: ', state);
-
   storage('excel-state', state);
 });
 

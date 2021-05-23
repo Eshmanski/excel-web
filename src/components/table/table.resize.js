@@ -49,7 +49,8 @@ export function resizeHandler($root, event) {
             });
 
             resolve({
-                id: type === 'col' ? $parent.data.col : null,
+                id: $parent.data[type],
+                type,
                 value,
             });
         };
