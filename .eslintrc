@@ -11,7 +11,8 @@
         "max-len": "off",
         "operator-linebreak": ["error", "none", { "overrides": {".": "before", "=": "after", "?": "before", ":": "before"}}],
         "indent": "off",
-        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }]
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+        "no-invalid-this": "off"
     },
     "extends": ["eslint:recommended", "google"]
 }
