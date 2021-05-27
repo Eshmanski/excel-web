@@ -1,3 +1,7 @@
+import { defaultStyles } from '@/constants';
+import { parse } from '@core/parse';
+import { toInlineStyles } from '@core/utils';
+
 const CODES = {
   A: 65,
   Z: 90,
@@ -23,18 +27,26 @@ function getHeight(state = {}, index) {
 function toCell(state, row) {
   return function(_, col) {
     const id = `${row}:${col}`;
+
     const width = getWidth(state.colState, col);
+
     const data = state.dataState[id];
+
+    const styles = toInlineStyles({
+      ...defaultStyles,
+      ...state.stylesState[id],
+    });
 
     return `
     <div 
     contenteditable 
     class="cell" 
-    data-id="${row}:${col}" 
+    data-id="${id}"
+    data-value="${data || ''}"
     data-type="cell" 
     data-col="${col}"
-    style="width: ${width}"
-    >${data ? data : ''}</div>`;
+    style="${styles}; width: ${width}"
+    >${parse(data) || ''}</div>`;
   };
 }
 
