@@ -1,48 +1,29 @@
 import { $ } from '@core/dom';
 import { Page } from '@core/Page';
+import { createRecordsTable } from './dashboard.function';
 
 export class DashboardPage extends Page {
     getRoot() {
+        const now = Date.now().toString();
+
         return $.create('div', 'db').html(`
         <div class="db">
 
-        <div class="db__header">
-            <h1>Excel Dashboard</h1>
-        </div>
-
-        <div class="db__new">
-            <div class="db__view">
-                <a href="" class="db__create">
-                    Новая <br /> Таблица
-                </a>
+            <div class="db__header">
+                <h1>Excel Панель Управления</h1>
             </div>
-        </div>
 
-        <div class="db__table db__view">
-            
-            <div class="db__list-header">
-                <span>Название</span>
-                <span>Дата открытия</span>
+            <div class="db__new">
+                <div class="db__view">
+                    <a href="#excel/${ now }" class="db__create">
+                        Новая <br /> Таблица
+                    </a>
+                </div>
             </div>
-            
-            <ul class="db__list">
-                <li class="db__record">
-                    <a href="#">Таблица номер 1</a>
-                    <strong>12.06.2020</strong>
-                </li>
 
-                <li class="db__record">
-                    <a href="#">Таблица номер 2</a>
-                    <strong>12.06.2020</strong>
-                </li>
-
-                <li class="db__record">
-                    <a href="#">Таблица номер 3</a>
-                    <strong>12.06.2020</strong>
-                </li>
-            </ul>
-        </div>
-
-    </div>`);
+            <div class="db__table db__view">
+                ${ createRecordsTable() }
+            </div>
+        </div>`);
     }
 }

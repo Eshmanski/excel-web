@@ -1,5 +1,5 @@
 import { $ } from '@core/dom';
-// import { ActiveRoute } from './ActiveRoute';
+import { ActiveRoute } from './ActiveRoute';
 
 export class Router {
     constructor(selector, routes) {
@@ -9,6 +9,7 @@ export class Router {
 
         this.$placeholder = $(selector);
         this.routes = routes;
+        this.page = null;
 
         this.changePageHadler = this.changePageHadler.bind(this);
 
@@ -22,12 +23,21 @@ export class Router {
     }
 
     changePageHadler(event) {
-        const Page = this.routes.excel;
-        const page = new Page();
+        if (this.page) {
+            this.page.destroy();
+        }
 
-        this.$placeholder.append(page.getRoot());
+        this.$placeholder.clear();
 
-        page.afterRender();
+        const Page = ActiveRoute.path.includes('excel')
+        ? this.routes.excel
+        : this.routes.dashboard;
+
+        this.page = new Page(ActiveRoute.param);
+
+        this.$placeholder.append(this.page.getRoot());
+
+        this.page.afterRender();
     }
 
     destroy() {
