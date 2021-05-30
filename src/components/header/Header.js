@@ -1,7 +1,8 @@
 import { changeTitle } from '@/redux/actions';
 import { $ } from '@core/dom';
 import { ExcelComponent } from '@core/ExcelComponent';
-import { debounce } from '@core/utils';
+import { ActiveRoute } from '@core/routes/ActiveRoute';
+import { debounce, storageDeleteExcel } from '@core/utils';
 
 export class Header extends ExcelComponent {
   static className = 'excel__header';
@@ -9,7 +10,7 @@ export class Header extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: 'Header',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
       ...options,
     });
   }
@@ -24,11 +25,11 @@ export class Header extends ExcelComponent {
     return `
     <input type="text" class="input" value="${title}"/>
     <div>
-      <div class="button">
-        <i class="material-icons">delete</i>
+      <div class="button" data-type="delete">
+        <i class="material-icons" data-type="delete">delete</i>
       </div>
-      <div class="button">
-        <i class="material-icons">exit_to_app</i> 
+      <div class="button" data-type="exit">
+        <i class="material-icons" data-type="exit">exit_to_app</i> 
       </div>
     </div>
     `;
@@ -38,5 +39,18 @@ export class Header extends ExcelComponent {
     const $target = $(event.target);
 
     this.$dispatch(changeTitle($target.text()));
+  }
+
+  onClick(event) {
+    const type = $(event.target).data.type;
+
+    switch (type) {
+      case 'exit':
+        window.location.hash = '#dasboard';
+        break;
+      case 'delete':
+        storageDeleteExcel(ActiveRoute.param);
+        window.location.hash = '#dasboard';
+    }
   }
 }

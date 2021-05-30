@@ -5,13 +5,9 @@ import { Table } from '@/components/table/Table';
 import { Toolbar } from '@/components/toolbar/Toolbar';
 import { createStore } from '@core/createStore';
 import { rootReducer } from '@/redux/rootReducer';
-import { storage, debounce } from '@core/utils';
+import { storage, debounce, storageName } from '@core/utils';
 import { normalizeInitialState } from '@/redux/initialState';
 import { Page } from '@core/Page';
-
-function storageName(param) {
-  return 'excel:' + param;
-}
 
 export class ExcelPage extends Page {
     getRoot() {

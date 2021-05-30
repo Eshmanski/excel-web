@@ -16,11 +16,34 @@ export function range(start, end) {
     .map((_, index) => start + index);
 }
 
+export function storageName(param) {
+  return 'excel:' + param;
+}
+
+export function getAllKeys() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+
+      if (!key.includes('excel')) {
+          continue;
+      }
+
+      keys.push(key);
+  }
+
+  return keys;
+}
+
 export function storage(key, data = null) {
   if (!data) {
     return JSON.parse(localStorage.getItem(key));
   }
   localStorage.setItem(key, JSON.stringify(data));
+}
+
+export function storageDeleteExcel(param) {
+  localStorage.removeItem(storageName(param));
 }
 
 export function isEqual(a, b) {

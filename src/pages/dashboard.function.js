@@ -1,25 +1,15 @@
-function toHTML() {
+import { getAllKeys, storage } from '@core/utils';
+
+function toHTML(key) {
+    const { createdAt, title } = storage(key);
+    const path = key.split(':');
+
     return `
     <li class="db__record">
-        <a href="#">Таблица номер 1</a>
-        <strong>12.06.2020</strong>
+        <a href="#${ path[0] }/${ path[1] }">${ title }</a>
+        <strong>${ createdAt }</strong>
     </li>
     `;
-}
-
-function getAllKeys() {
-    const keys = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-
-        if (!key.includes('excel')) {
-            continue;
-        }
-
-        keys.push(key);
-    }
-
-    return keys;
 }
 
 export function createRecordsTable() {

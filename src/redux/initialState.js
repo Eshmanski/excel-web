@@ -9,6 +9,7 @@ const defaultState = {
   stylesState: {},
   currentText: '',
   currentStyles: defaultStyles,
+  createdAt: new Date().toLocaleDateString(),
 };
 
 const normalize = (state) => ({
