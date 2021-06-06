@@ -1,4 +1,4 @@
-import { $ } from '@core/dom';
+import { $ } from '../dom';
 import { ActiveRoute } from './ActiveRoute';
 
 export class Router {
@@ -11,18 +11,18 @@ export class Router {
         this.routes = routes;
         this.page = null;
 
-        this.changePageHadler = this.changePageHadler.bind(this);
+        this.changePageHandler = this.changePageHandler.bind(this);
 
         this.init();
     }
 
     init() {
-        window.addEventListener('hashchange', this.changePageHadler);
+        window.addEventListener('hashchange', this.changePageHandler);
 
-        this.changePageHadler();
+        this.changePageHandler();
     }
 
-    changePageHadler(event) {
+    changePageHandler(event) {
         if (this.page) {
             this.page.destroy();
         }
@@ -41,6 +41,6 @@ export class Router {
     }
 
     destroy() {
-        window.removeEventListener('hashchange', this.changePageHadler);
+        window.removeEventListener('hashchange', this.changePageHandler);
     }
 }

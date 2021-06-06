@@ -1,6 +1,7 @@
 {
     "parser": "babel-eslint",
     "env": {
+        "jest/globals": true,
         "es6": true,
         "browser":true,
         "node": true
@@ -14,5 +15,6 @@
         "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
         "no-invalid-this": "off"
     },
+    "plugins": ["jest"],
     "extends": ["eslint:recommended", "google"]
 }
