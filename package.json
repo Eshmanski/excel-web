@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development webpack serve --open",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "prettier": "^1.14.0"
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
+    "build-git": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "copy-webpack-plugin": "^8.1.1",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.2",
+    "css-minimizer-webpack-plugin": "^3.0.1",
     "eslint": "^7.24.0",
     "eslint-config-google": "^0.14.0",
     "eslint-loader": "^4.0.2",

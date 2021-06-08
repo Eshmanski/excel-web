@@ -3,10 +3,20 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
-const isProd = process.env.NODE_ENV === 'production';
-const isDev = !isProd;
+const isDev = process.env.NODE_ENV === 'development';
+const isProd = !isDev;
 const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`);
+
+const optimization = {
+  minimize: true,
+  minimizer: [
+    new TerserPlugin(),
+    new CssMinimizerPlugin(),
+  ],
+};
 
 const jsLoader = () => {
   const loaders = [
@@ -80,4 +90,5 @@ module.exports = {
     ],
   },
   target: 'web',
+  optimization,
 };
