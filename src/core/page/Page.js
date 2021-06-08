@@ -1,6 +1,7 @@
 export class Page {
     constructor(params) {
-        this.params = params || Date.now().toString();
+        this.id = params[0];
+        this.preset = params[1] || 'new';
     }
 
     getRoot() {
