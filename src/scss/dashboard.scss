@@ -37,6 +37,7 @@
         text-decoration: none;
         color: #000;
         text-align: center;
+        margin: 0 20px;
 
         &:hover {
             cursor: pointer;
@@ -45,9 +46,13 @@
         }
     }
 
+    &_flex {
+        display: flex;
+    }
+
     &__view {
         max-width: 1000px;
-        margin: 0 auto;
+        margin: 0 auto;  
     }
 
     &__table {

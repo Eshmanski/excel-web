@@ -16,13 +16,13 @@ export class ExcelPage extends Page {
 
     this.storeSub = null;
     this.processor = new StateProcessor(
-      new LocalStorageClient(this.params),
+      new LocalStorageClient(this.id),
     );
   }
 
   async getRoot() {
       const state = await this.processor.get();
-      const initialState = normalizeInitialState(state);
+      const initialState = normalizeInitialState(state, this.preset);
       const store = createStore(rootReducer, initialState);
 
       this.storeSub = store.subscribe(this.processor.listen);

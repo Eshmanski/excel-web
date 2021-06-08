@@ -23,7 +23,7 @@ export class LocalStorageClient {
 
       setTimeout(() => {
         resolve(state);
-      }, 1500);
+      }, 500);
     });
   }
 }
